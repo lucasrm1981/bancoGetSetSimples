@@ -1,0 +1,80 @@
+package getSetBancoSimples;
+
+import java.util.Scanner;
+
+public class bancoGetSet {
+private double saldo;
+
+    /* Classe das operações da conta */
+
+    public void setSaldo(double saldo) {
+        /* Faz a primeira entrada */
+        this.saldo = saldo;
+    }
+
+    public double getSaldo() {
+        /* Faz a recuperação */
+        return saldo;
+    }
+
+    public void setDepositar(double valor) {
+        /* Acresenta o valor */
+        this.saldo += valor;
+    }
+
+    public void setSacar(Double valor) {
+        /* retira o valor */
+        this.saldo -= valor;
+    }
+
+    public void verificaSaldo() {
+        
+        if(getSaldo()<1000) {/* Vou Acertando o limite especial */
+        	System.out.printf("Valor do Saldo com Limite Especial: R$ %.2f ",1000-getSaldo());
+        }
+        else {
+        	System.out.printf("Valor do Saldo com Limite Especial: R$ %.2f ",getSaldo());
+        }
+        
+    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        //INSTANCIA A CLASSE
+    	bancoGetSet conta = new bancoGetSet();
+        conta.setSaldo(1000.00);
+        /* Limite especial*/
+
+        System.out.print("\nEscolha a operacao desejada:\n 1) Para Extrato\n 2) Para Saque \n 3) Para Deposito \n 00) Para Sair  \n");
+        Scanner input = new Scanner(System.in);
+        int opcao = input.nextInt();
+
+        while (opcao != 00) {
+            if (opcao == 1) {
+                //RESGATA VALOR
+                conta.verificaSaldo();
+            } else if (opcao == 2) {
+                System.out.print("\n Digite o valor de saque\n");
+                double saque = input.nextDouble();
+                double saldoin = conta.getSaldo();
+                if(saldoin < saque ){
+                    System.out.println("Saldo Insuficiente!\n"
+                            + "Seu Saldo é de: R$ " + saldoin);
+                }else{
+                conta.setSacar(saque);
+                }
+            } else if (opcao == 3) {
+                System.out.print("\nSaldo com Deposito\n");
+                double deposito = input.nextDouble();
+                conta.setDepositar(deposito);
+            }
+
+            System.out.print("\nEscolha a operacao desejada:\n 1) Para Extrato\n 2) Para Saque \n 3) Para Deposito \n 00) Para Sair  \n");            
+            opcao = input.nextInt();
+
+        }
+    }
+    
+}
